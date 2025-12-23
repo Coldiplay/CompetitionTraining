@@ -1,4 +1,5 @@
 
+using API.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -25,6 +26,12 @@ namespace API
                     IssuerSigningKey = Config.GetSymmetricSecurityKey()
                 };
             });
+            builder.Services.AddScoped<CompetitionContext>(opt =>
+            {
+                return DBExample.GetDB();
+            });
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
 
             builder.Services.AddControllers();
@@ -36,12 +43,15 @@ namespace API
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
                 app.MapOpenApi();
-                app.MapScalarApiReference();
+                //app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

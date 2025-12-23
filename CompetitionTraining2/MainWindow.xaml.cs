@@ -1,10 +1,4 @@
-﻿
-using System.IO;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.Windows;
+﻿using System.Windows;
 
 namespace CompetitionTraining2
 {
@@ -86,12 +80,11 @@ namespace CompetitionTraining2
             //    test2.Add(dbset.GetType().GetMethod("ToList").Invoke(dbset, []));
             //}
             */
-
-            ///*
+            /*
             //var list = db.VendingMachines.ToList();
             //db.VendingMachines.Add(list.First());
             //db.SaveChanges();
-            //*/
+            //
 
             //var password = "12345";
             //var sha = SHA256.Create();
@@ -99,7 +92,7 @@ namespace CompetitionTraining2
             //var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
             
             //var hashString = Convert.ToBase64String(hash);
-
+            */
 
 
             InitializeComponent();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.DB;
 
-public partial class Product
+public partial class Product : IBaseModel
 {
     public string Id { get; set; } = null!;
 
