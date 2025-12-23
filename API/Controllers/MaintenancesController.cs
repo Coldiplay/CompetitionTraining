@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using API.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.DB;
-using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenancesController : ControllerBase
@@ -26,7 +20,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Maintenance>>> GetMaintenances()
         {
-            return await _context.Maintenances.ToListAsync();
+            var answer = await _context.Maintenances.ToListAsync();
+            return Ok(answer);
         }
 
         // GET: api/Maintenances/5

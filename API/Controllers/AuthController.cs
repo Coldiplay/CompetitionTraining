@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using API.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,18 +15,20 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost]
+        private readonly CompetitionContext competitionContext;
+
+        public AuthController(CompetitionContext competitionContext)
+        {
+            this.competitionContext = competitionContext;
+        }
+
+        [HttpGet("[action]")]
         public async Task<IActionResult> Authentificate(string username, string password)
         {
-            var users = DBExample.GetDB().Users.ToList();
-            var userTest = users.FirstOrDefault(u => u.Fio.Equals(username) && 
-            Convert.
-            ToBase64String(
-                SHA256.HashData(
-                    Encoding.UTF8.GetBytes(password)
-                    )
-                ).Equals(u.Password));
-            var user = await DBExample.GetDB().Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Fio.Equals(username) && Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password))).Equals(u.Password));
+            password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password)));
+            //var userTest = competitionContext.Users.FirstOrDefault(u => u.Fio.Equals(username) && 
+            //password.Equals(u.Password));
+            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Fio.Equals(username) && password.Equals(u.Password));
             if (user is null)
                 return Unauthorized();
 
@@ -41,6 +44,17 @@ namespace API.Controllers
                     expires: now.AddMinutes(Config.LIFE_TIME),
                     signingCredentials: new(Config.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                 )));
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<User>> GetUser(string username, string password)
+        {
+            password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password)));
+            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Fio.Equals(username) && password.Equals(u.Password));
+            if (user is null)
+                return Unauthorized();
+
+            return Ok(user);
         }
     }
 }

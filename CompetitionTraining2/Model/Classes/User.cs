@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace API.DB;
+namespace CompetitionTraining2.Model.Classes;
 
 public partial class User
 {

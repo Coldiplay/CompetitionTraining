@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VendingMachinesController : ControllerBase
@@ -26,7 +26,23 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VendingMachine>>> GetVendingMachines()
         {
-            return await _context.VendingMachines.ToListAsync();
+            return await _context.VendingMachines
+                //.Include(e => e.CreatorCompany)
+                //.Include(e => e.CriticalThresholdTemplate)
+                //.Include(e => e.Engineer)
+                //.Include(e => e.Maintenances)
+                //.Include(e => e.Manager)
+                //.Include(e => e.NotificationTemplate)
+                //.Include(e => e.Operator)
+                //.Include(e => e.Products)
+                //.Include(e => e.Sales)
+                //.Include(e => e.ServicePriority)
+                //.Include(e => e.Status)
+                //.Include(e => e.Technician)
+                //.Include(e => e.User)
+                //.Include(e => e.WorkMode)
+                //.Include(e => e.PaymentTypes)
+                .ToListAsync();
         }
 
         // GET: api/VendingMachines/5

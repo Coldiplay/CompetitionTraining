@@ -2,7 +2,6 @@
 using API.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Scalar.AspNetCore;
 using System.Text;
 
 namespace API
@@ -26,15 +25,20 @@ namespace API
                     IssuerSigningKey = Config.GetSymmetricSecurityKey()
                 };
             });
+            //builder.Services.AddDbContext<CompetitionContext>
             builder.Services.AddScoped<CompetitionContext>(opt =>
             {
-                return DBExample.GetDB();
+                return new CompetitionContext();
+                //return DBExample.GetDB();
             });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions((config) =>
+            {
+                config.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

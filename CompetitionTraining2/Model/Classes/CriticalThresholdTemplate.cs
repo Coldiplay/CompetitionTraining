@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace API.DB;
+namespace CompetitionTraining2.Model.Classes;
 
-public partial class NotificationTemplate
+public partial class CriticalThresholdTemplate
 {
     public int Id { get; set; }
 
