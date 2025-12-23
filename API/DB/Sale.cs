@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
 public partial class Sale
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string VendingMachineId { get; set; } = null!;
 
@@ -13,7 +13,7 @@ public partial class Sale
 
     public short Quantity { get; set; }
 
-    public double TotalCost { get; set; }
+    public decimal TotalCost { get; set; }
 
     public DateTime Timestamp { get; set; }
 

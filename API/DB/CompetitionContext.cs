@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
 public partial class CompetitionContext : DbContext
 {
@@ -20,6 +23,8 @@ public partial class CompetitionContext : DbContext
     public virtual DbSet<Maintenance> Maintenances { get; set; }
 
     public virtual DbSet<NotificationTemplate> NotificationTemplates { get; set; }
+
+    public virtual DbSet<Operator> Operators { get; set; }
 
     public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
 
@@ -133,6 +138,20 @@ public partial class CompetitionContext : DbContext
                 .HasColumnName("title");
         });
 
+        modelBuilder.Entity<Operator>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("operator");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<PaymentMethod>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -181,7 +200,9 @@ public partial class CompetitionContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Price)
+                .HasPrecision(10, 2)
+                .HasColumnName("price");
             entity.Property(e => e.QuantityAvailable)
                 .HasColumnType("smallint(5) unsigned")
                 .HasColumnName("quantity_available");
@@ -223,7 +244,7 @@ public partial class CompetitionContext : DbContext
             entity.HasIndex(e => e.VendingMachineId, "sale_vending_machine_FK");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(36)
+                .HasColumnType("int(11)")
                 .HasColumnName("id");
             entity.Property(e => e.PaymentMethodId)
                 .HasColumnType("int(11)")
@@ -239,7 +260,9 @@ public partial class CompetitionContext : DbContext
                 .HasDefaultValueSql("current_timestamp()")
                 .HasColumnType("datetime")
                 .HasColumnName("timestamp");
-            entity.Property(e => e.TotalCost).HasColumnName("total_cost");
+            entity.Property(e => e.TotalCost)
+                .HasPrecision(10, 2)
+                .HasColumnName("total_cost");
             entity.Property(e => e.VendingMachineId)
                 .HasMaxLength(36)
                 .HasColumnName("vending_machine_id");
@@ -309,6 +332,9 @@ public partial class CompetitionContext : DbContext
             entity.Property(e => e.IsEngineer).HasColumnName("is_engineer");
             entity.Property(e => e.IsManager).HasColumnName("is_manager");
             entity.Property(e => e.IsOperator).HasColumnName("is_operator");
+            entity.Property(e => e.Password)
+                .HasMaxLength(256)
+                .HasColumnName("password");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
                 .HasColumnName("phone");
@@ -334,17 +360,19 @@ public partial class CompetitionContext : DbContext
 
             entity.HasIndex(e => e.NotificationTemplateId, "vending_machine_notification_template_FK");
 
+            entity.HasIndex(e => e.OperatorId, "vending_machine_operator_FK");
+
             entity.HasIndex(e => e.ServicePriorityId, "vending_machine_service_priority_FK");
 
             entity.HasIndex(e => e.StatusId, "vending_machine_status_vending_machine_FK");
+
+            entity.HasIndex(e => e.SerialNumber, "vending_machine_unique").IsUnique();
 
             entity.HasIndex(e => e.UserId, "vending_machine_user_FK");
 
             entity.HasIndex(e => e.ManagerGuid, "vending_machine_user_FK_1");
 
             entity.HasIndex(e => e.EngineerGuid, "vending_machine_user_FK_2");
-
-            entity.HasIndex(e => e.OperatorId, "vending_machine_user_FK_3");
 
             entity.HasIndex(e => e.TechnicianGuid, "vending_machine_user_FK_4");
 
@@ -384,6 +412,10 @@ public partial class CompetitionContext : DbContext
             entity.Property(e => e.MaintainceInterval)
                 .HasColumnType("smallint(6)")
                 .HasColumnName("maintaince_interval");
+            entity.Property(e => e.MaintenanceTime)
+                .HasDefaultValueSql("'1'")
+                .HasColumnType("smallint(5) unsigned")
+                .HasColumnName("maintenance_time");
             entity.Property(e => e.ManagerGuid)
                 .HasMaxLength(36)
                 .HasColumnName("manager_guid");
@@ -406,7 +438,7 @@ public partial class CompetitionContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("notification_template_id");
             entity.Property(e => e.OperatorId)
-                .HasMaxLength(36)
+                .HasColumnType("int(11)")
                 .HasColumnName("operator_id");
             entity.Property(e => e.Place)
                 .HasMaxLength(100)
@@ -432,10 +464,15 @@ public partial class CompetitionContext : DbContext
             entity.Property(e => e.TechnicianGuid)
                 .HasMaxLength(36)
                 .HasColumnName("technician_guid");
+            entity.Property(e => e.TimeResource)
+                .HasColumnType("int(10) unsigned")
+                .HasColumnName("time_resource");
             entity.Property(e => e.Timezone)
                 .HasMaxLength(6)
                 .HasColumnName("timezone");
-            entity.Property(e => e.TotalIncome).HasColumnName("total_income");
+            entity.Property(e => e.TotalIncome)
+                .HasPrecision(10, 2)
+                .HasColumnName("total_income");
             entity.Property(e => e.UserId)
                 .HasMaxLength(36)
                 .HasColumnName("user_id");
@@ -467,13 +504,12 @@ public partial class CompetitionContext : DbContext
 
             entity.HasOne(d => d.NotificationTemplate).WithMany(p => p.VendingMachines)
                 .HasForeignKey(d => d.NotificationTemplateId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("vending_machine_notification_template_FK");
 
-            entity.HasOne(d => d.Operator).WithMany(p => p.VendingMachineOperators)
+            entity.HasOne(d => d.Operator).WithMany(p => p.VendingMachines)
                 .HasForeignKey(d => d.OperatorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("vending_machine_user_FK_3");
+                .HasConstraintName("vending_machine_operator_FK");
 
             entity.HasOne(d => d.ServicePriority).WithMany(p => p.VendingMachines)
                 .HasForeignKey(d => d.ServicePriorityId)

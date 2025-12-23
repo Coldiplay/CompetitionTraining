@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
 public partial class Product
 {
@@ -9,7 +9,7 @@ public partial class Product
 
     public string Name { get; set; } = null!;
 
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 
     public short MinStock { get; set; }
 

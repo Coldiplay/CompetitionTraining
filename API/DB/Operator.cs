@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
-public partial class ServicePriority
+public partial class Operator
 {
     public int Id { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     public virtual ICollection<VendingMachine> VendingMachines { get; set; } = new List<VendingMachine>();
 }

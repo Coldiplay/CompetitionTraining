@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
-public partial class PaymentType
+public partial class StatusVendingMachine
 {
     public int Id { get; set; }
 

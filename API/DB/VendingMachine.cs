@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompetitionTraining2.DB;
+namespace API.DB;
 
 public partial class VendingMachine
 {
@@ -35,7 +35,7 @@ public partial class VendingMachine
 
     public int StatusId { get; set; }
 
-    public int NotificationTemplateId { get; set; }
+    public int? NotificationTemplateId { get; set; }
 
     public string? WorkingHours { get; set; }
 
@@ -43,13 +43,13 @@ public partial class VendingMachine
 
     public string Id { get; set; } = null!;
 
-    public DateOnly CreationDate { get; set; }
+    public DateOnly? CreationDate { get; set; }
 
     public DateTime? InstallDate { get; set; }
 
     public string Place { get; set; } = null!;
 
-    public string OperatorId { get; set; } = null!;
+    public int OperatorId { get; set; }
 
     public string TechnicianGuid { get; set; } = null!;
 
@@ -61,15 +61,19 @@ public partial class VendingMachine
 
     public string? Coordinates { get; set; }
 
-    public double TotalIncome { get; set; }
+    public decimal TotalIncome { get; set; }
 
     public string Timezone { get; set; } = null!;
 
     public DateTime? InventoryDate { get; set; }
 
-    public string ManufactureCountry { get; set; } = null!;
+    public string? ManufactureCountry { get; set; }
 
     public DateTime? NextMaintainceDate { get; set; }
+
+    public uint? TimeResource { get; set; }
+
+    public ushort MaintenanceTime { get; set; }
 
     public virtual Company CreatorCompany { get; set; } = null!;
 
@@ -81,9 +85,9 @@ public partial class VendingMachine
 
     public virtual User Manager { get; set; } = null!;
 
-    public virtual NotificationTemplate NotificationTemplate { get; set; } = null!;
+    public virtual NotificationTemplate? NotificationTemplate { get; set; }
 
-    public virtual User Operator { get; set; } = null!;
+    public virtual Operator Operator { get; set; } = null!;
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
