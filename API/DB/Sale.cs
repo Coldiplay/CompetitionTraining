@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace API.DB;
 
@@ -24,6 +22,6 @@ public partial class Sale
     public virtual PaymentMethod PaymentMethod { get; set; } = null!;
     //[JsonIgnore]
     public virtual Product Product { get; set; } = null!;
-    [JsonIgnore]
+    //[JsonIgnore]
     public virtual VendingMachine VendingMachine { get; set; } = null!;
 }

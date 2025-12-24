@@ -8,9 +8,9 @@
         Title="Authorize" Height="450" Width="800">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Label>Логин</Label>
-        <TextBox Text="{Binding Login}"/>
+        <TextBox MinWidth="200" Text="{Binding Login}"/>
         <Label>Пароль</Label>
         <PasswordBox Name="passwordBox"></PasswordBox>
-        <Button Content="Войти" Click="LogIn"/>
+        <Button Margin="10" Content="Войти" Click="LogIn"/>
     </StackPanel>
 </Window>

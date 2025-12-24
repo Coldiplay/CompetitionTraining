@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompetitionTraining2"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="1000">
 
     <Window.Resources>
         <SolidColorBrush x:Key="backBrush" Color="#FF0F2233"/>
@@ -47,10 +48,11 @@
             <Label FontSize="14" Content="Лого"/>
             <Separator/>
             <StackPanel Orientation="Horizontal">
-                <Image /> <!--флаг-->
+                <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/eur.png" /> <!--флаг-->
                 <StackPanel>
                     <Label Content="{Binding UserName}"/>
                     <Label Content="{Binding UserRole}"/>
+                    
                 </StackPanel>
                 
             </StackPanel>
@@ -79,6 +81,10 @@
                         </Style>
                     </Style.Resources>
                 </Style>
+
+                <Style TargetType="Image">
+                    <Setter Property="Height" Value="16"/>
+                </Style>
                 
                 <Style TargetType="Label">
                     <Setter Property="Foreground" Value="White"/>
@@ -86,10 +92,13 @@
                 </Style>
             </StackPanel.Resources>
 
+
+            <Label Content="Навигация"/>
+
             <Button Click="MainPageShow">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image/>
+                        <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/search.png" Height="16"/>
                         <Label Content="Главная"/>
                     </StackPanel>
                 </Button.Content>
@@ -98,7 +107,7 @@
             <Button Click="MonitorVendMachinesShow">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image />
+                        <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/television.png"/>
                         <Label Content="Монитор ТА"/>
                     </StackPanel>
                 </Button.Content>
@@ -107,7 +116,7 @@
             <Button Click="ReportsVisChange">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image />
+                        <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/file-text.png" />
                         <Label Content="Детальные отчёты"/>
                     </StackPanel>
                 </Button.Content>
@@ -121,7 +130,7 @@
             <Button Click="AccountingVisChange">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image/>
+                        <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/shopping-cart.png"/>
                         <Label Content="Учёт ТМЦ"/>
                     </StackPanel>
                 </Button.Content>
@@ -135,7 +144,7 @@
             <Button Click="AdministrationVisChange">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image/>
+                        <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/16/cogs.png"/>
                         <Label Content="Администрирование"/>
                     </StackPanel>
                 </Button.Content>
@@ -152,6 +161,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1" Grid.Column="1">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -172,9 +182,123 @@
             
 
             <ContentControl Content="{Binding Test}"/>
-            
+
+
+            <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <Label VerticalAlignment="Center" FontSize="20" Content="Личный кабинет. Главная" Grid.ColumnSpan="3"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Эффективность сети" FontWeight="SemiBold" Background="LightGray"/>
+                </Grid>
+
+
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+
+                    <Label Content="Сводка" FontWeight="SemiBold" Background="LightGray"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="8"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Padding" Value="4"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            
+                            <Label>Денег в ТА</Label>
+                            <Label>Сдача в ТА</Label>
+                            <Label>Выручка, сегодня</Label>
+                            <Label>Выручка, вчера</Label>
+                            <Label>Инкасированно, сегодня</Label>
+                            <Label>Инкасированно, вчера</Label>
+                            <Label>Обслужено ТА, сег./вчера</Label>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <StackPanel.Resources>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="8"/>
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="Padding" Value="4"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            
+                            <Label>46546 р.</Label>
+                            <Label>???465 р.</Label>
+                            <Label Content="{Binding RevenueToday}"/>
+                            <Label Content="{Binding RevenueYesterday}"/>
+                            <Label>???46546 р.</Label>
+                            <Label>???465 р.</Label>
+                            
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="{Binding MaintenancesToday}"/>
+                                <Label>/</Label>
+                                <Label Content="{Binding MaintenancesYesterday}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                
+                
+                
+
+                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+
+                    <StackPanel Background="LightGray">
+                        <Label Content="Динамика продаж за последние 10 дней" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding SalesText}"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="По сумме" Margin="10 10 3 10"/>
+                            <Button Content="По количеству" Margin="3 10 10 10"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <oxy:PlotView Model="{Binding Sales}" Grid.Row="1" DefaultTrackerTemplate="{x:Null}"/>
+
+                </Grid>
+
+                <oxy:PlotView Model="{Binding Test}" Grid.Row="2" Grid.Column="2" DefaultTrackerTemplate="{x:Null}"/>
+            </Grid>
+
 
         </Grid>
+
+        
+        
         
     </Grid>
 </Window>

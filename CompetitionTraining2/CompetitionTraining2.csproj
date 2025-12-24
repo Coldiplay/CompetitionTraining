@@ -12,4 +12,31 @@
     <ProjectReference Include="..\API\API.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\logs\refs\heads\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\logs\refs\remotes\origin\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\objects\info\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\refs\remotes\origin\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\refs\tags\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\22\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\24\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\256\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\32\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\48\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\64\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\128\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\16\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\22\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\24\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\256\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\32\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\48\" />
+    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\64\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OxyPlot.Wpf" Version="2.2.0" />
+  </ItemGroup>
+
 </Project>

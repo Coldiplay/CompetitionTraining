@@ -29,7 +29,7 @@ namespace CompetitionTraining2
             {
                 string token = await result.Content.ReadAsStringAsync();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                Helper.User = await client.GetFromJsonAsync<User>($"Auth/GetUser?username={Login}&password={passwordBox.Password}");
+                Helper.User = (await client.GetFromJsonAsync<User>($"Auth/GetUser?username={Login}&password={passwordBox.Password}"))!;
 
                 new MainWindow().Show();
                 Close();

@@ -32,7 +32,14 @@ namespace API.Controllers
             if (user is null)
                 return Unauthorized();
 
-            var identity = new ClaimsIdentity([new (ClaimsIdentity.DefaultRoleClaimType, user.Role.Title), new (ClaimsIdentity.DefaultRoleClaimType, user.Role.Title)], "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            var identity = new ClaimsIdentity(
+                [
+                    new (ClaimsIdentity.DefaultNameClaimType, user.Fio),
+                    new (ClaimsIdentity.DefaultRoleClaimType, user.Role.Title)
+                ],
+                "Token", 
+                ClaimsIdentity.DefaultNameClaimType, 
+                ClaimsIdentity.DefaultRoleClaimType);
             var now = DateTime.UtcNow;
 
             return Ok(new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken

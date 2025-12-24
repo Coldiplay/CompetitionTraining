@@ -13,6 +13,7 @@ namespace API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddAuthorization();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new()
@@ -20,7 +21,7 @@ namespace API
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
-                    //ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidIssuer = Config.ISSUER,
                     IssuerSigningKey = Config.GetSymmetricSecurityKey()
                 };
