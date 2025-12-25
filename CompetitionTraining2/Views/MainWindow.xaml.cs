@@ -53,7 +53,10 @@ namespace CompetitionTraining2
         public static string? UserRole => Helper.User?.Role?.Title;
 
 
-        public PlotModel? Sales
+        private static DateTime Now => DateTime.Now;
+
+
+        public PlotModel? SalesModel
         {
             get => sales;
             set
@@ -62,32 +65,20 @@ namespace CompetitionTraining2
                 Signal();
             }
         }
-        /*
-        public PlotModel? Test
-        {
-            get => test;
-            set
-            {
-                test = value;
-                Signal();
-            }
-        }
-        */
 
         private List<VendingMachine>? VendingMachines { get; set; }
         private List<Sale>? SalesList { get; set; }
 
 
-        public static string SalesText => $"Данные по продажам с {DateTime.Now.AddDays(-10).ToShortDateString()} по {DateTime.Now.AddDays(-1).ToShortDateString()}";
+        public static string SalesText => $"Данные по продажам с {Now.AddDays(-10).ToShortDateString()} по {Now.AddDays(-1).ToShortDateString()}";
 
 
-        public string RevenueToday => GetRevenue(DateTime.Now);
-        public string RevenueYesterday => GetRevenue(DateTime.Now.AddDays(-1));
+        public string RevenueToday => GetRevenue(Now);
+        public string RevenueYesterday => GetRevenue(Now.AddDays(-1));
 
         public string GetRevenue(DateTime date) => $"{SalesList?.Where(s => s.Timestamp.Date == date.Date).Sum(s => s.TotalCost)} р.";
 
 
-        //public string Test { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -108,7 +99,6 @@ namespace CompetitionTraining2
         {
             VendingMachines = [.. (await GetFromJson<List<VendingMachine>>("VendingMachines"))?.Where(m => m.UserId == Helper.User.Id) ?? []];
         }
-        //public string MoneyInTA 
         private async Task LoadSales()
         {
             SalesList = [.. await GetFromJson<List<Sale>>("Sales")];
@@ -120,9 +110,9 @@ namespace CompetitionTraining2
             Maintenances = [.. (await GetFromJson<List<Maintenance>>("Maintenances")).Where(m => VendingMachines.Any(vm => vm.Id.Equals(m.VendingMachineId)))];
 
         }
-        public uint MaintenancesToday => GetMaintenancesCount(DateTime.Now);
-        public uint MaintenancesYesterday => GetMaintenancesCount(DateTime.Now.AddDays(-1));
-        public uint GetMaintenancesCount(DateTime date) => (uint)Maintenances?.Where(m => m.Date.Date == date.Date)?.Count();
+        public uint MaintenancesToday => GetMaintenancesCount(Now);
+        public uint MaintenancesYesterday => GetMaintenancesCount(Now.AddDays(-1));
+        public uint GetMaintenancesCount(DateTime date) => Maintenances is null ? 0 : (uint)Maintenances.Where(m => m.Date.Date == date.Date).Count();
         public List<Maintenance>? Maintenances { get; set; }
         
 
@@ -153,7 +143,7 @@ namespace CompetitionTraining2
             List<Sale> list = [.. SalesList ?? []];
 
             //var notBefore = list?.MaxBy(s => s.Timestamp)?.Timestamp.AddDays(-days) ?? DateTime.UtcNow;
-            var notBefore = DateTime.Now.AddDays(-(days));
+            var notBefore = Now.AddDays(-days);
 
             list = list?
                     .Where(s => s.Timestamp >= notBefore)
@@ -203,46 +193,11 @@ namespace CompetitionTraining2
             model.Axes.Add(categoryAxis);
             model.Series.Add(barSeries);
 
-            Sales = model;
+            SalesModel = model;
 
 
             GC.Collect();
         }
-        /*
-        private async void TestModel()
-        {
-            //var options = new JsonSerializerOptions()
-            //{
-            //    ReferenceHandler = ReferenceHandler.Preserve,
-            //    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            //};
-            //var list = await Helper.Client.GetFromJsonAsync<IEnumerable<Sale>>("Sales", options);
-
-
-            var model = new PlotModel();
-            model.Axes.Add(new CategoryAxis() { Key = "Y"});
-            model.Axes.Add(new LinearAxis { Key = "X" });
-
-
-            for (var i = 0; i < 4; i++)
-            {
-                var series = new BarSeries();
-                series.ActualItems.Add(new BarItem(50));
-                series.Title = $"Test series {i}";
-                model.Series.Add(series);
-                series.XAxisKey = "X";
-                series.YAxisKey = "Y";
-            }
-            
-
-
-
-            Test = model;
-        }
-        */
-
-
-
         private void ReportsVisChange(object sender, RoutedEventArgs e)
         {
             ReportsVis = ReportsVis == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
