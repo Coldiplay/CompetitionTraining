@@ -1,6 +1,5 @@
 ﻿using CompetitionTraining2.Model.Classes;
 using CompetitionTraining2.Model.Tools;
-using CompetitionTraining2.Views;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -12,113 +11,20 @@ using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CompetitionTraining2
+namespace CompetitionTraining2.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainPage : UserControl, INotifyPropertyChanged
     {
-        public static string? UserName => Helper.User?.Last_name_fn_p;
-        public static string? UserRole => Helper.User?.Role?.Title;
-        public static byte[] Image => Convert.FromBase64String(Helper.User.Image?.Split(',').MaxBy(s => s.Length) ?? string.Empty);
-        public UserControl CurrentPage { get; set; } = new MainPage();
-        private Visibility reportsVis = Visibility.Collapsed;
-        private Visibility accountingVis = Visibility.Collapsed;
-        private Visibility administrationVis = Visibility.Collapsed;
-        private Visibility menuVis;
-
-        public Visibility MenuVis
+        public MainPage()
         {
-            get => menuVis;
-            set
-            {
-                menuVis = value;
-                Signal();
-            }
+            InitializeComponent();
         }
-        public Visibility ReportsVis
-        {
-            get => reportsVis;
-            set
-            {
-                reportsVis = value;
-                Signal();
-            }
-        }
-        public Visibility AccountingVis
-        {
-            get => accountingVis;
-            set
-            {
-                accountingVis = value;
-                Signal();
-            }
-        }
-        public Visibility AdministrationVis
-        {
-            get => administrationVis; set
-            {
-                administrationVis = value;
-                Signal();
-            }
-        }
-
-
-        private List<Company> Companies { get; set; }
-        private int? SelectedCompanyId { get; set; }
-
-
-
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void Signal([CallerMemberName] string name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        private void ReportsVisChange(object sender, RoutedEventArgs e)
-        {
-            ReportsVis = ReportsVis == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-        private void AccountingVisChange(object sender, RoutedEventArgs e)
-        {
-            AccountingVis = AccountingVis == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-        private void AdministrationVisChange(object sender, RoutedEventArgs e)
-        {
-            AdministrationVis = AdministrationVis == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-        private void ChangeCompany(object sender, RoutedEventArgs e)
-        {
-            if (SelectedCompanyId is not null)
-            {
-                var list = Companies.Select(c => c.Id).ToList();
-                list.Remove((int)SelectedCompanyId);
-                SelectedCompanyId = list.FirstOrDefault();
-                return;
-            }
-
-            SelectedCompanyId = Companies.FirstOrDefault()?.Id;
-        }
-        private void ChangeMenuVis(object sender, RoutedEventArgs e) =>
-            MenuVis = MenuVis == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-
-        private void MainPageShow(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void MonitorVendMachinesShow(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        //
-        //
-        //
-        // Остальное вынести в UserControl
-        //
-        //
-        //
-        //
 
         private static readonly JsonSerializerOptions options = new()
         {
@@ -217,28 +123,15 @@ namespace CompetitionTraining2
 
         public string RevenueToday => GetRevenue(Now);
         public string RevenueYesterday => GetRevenue(Now.AddDays(-1));
-        public string CompanyName => Companies?.FirstOrDefault(c => c.Id.Equals(SelectedCompanyId))?.Name ?? string.Empty;
+        //public string CompanyName => Companies?.FirstOrDefault(c => c.Id.Equals(SelectedCompanyId))?.Name ?? string.Empty;
 
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            DataContext = this;
-
-            Load();
-        }
-
-        private async void Load2() 
-        {
-            
-        }
 
         private async void Load()
         {
             await LoadVendingMachines();
 
-            await LoadCompanies();
-            LoadFranchiseMachines();
+            //await LoadCompanies();
+            //LoadFranchiseMachines();
             await LoadSales();
             await LoadMainteince();
 
@@ -250,17 +143,17 @@ namespace CompetitionTraining2
             AllMachinesFromFranchise = (await GetFromJson<List<VendingMachine>>("VendingMachines")) ?? [];
             VendingMachines = [.. AllMachinesFromFranchise.Where(m => m.UserId == Helper.User.Id) ?? []];
         }
-        private void LoadFranchiseMachines()
-        {
-            AllMachinesFromFranchise = [..AllMachinesFromFranchise.Where(m => m.CreatorCompanyId.Equals(SelectedCompanyId))];
-            UsersMachinesFromFranchise = [.. VendingMachines.Where(m => m.CreatorCompanyId.Equals(SelectedCompanyId))];
-        }
-        private async Task LoadCompanies()
-        {
-            var listFranchise = VendingMachines.Select(s => s.CreatorCompanyId).ToList();
-            Companies = [..(await GetFromJson<List<Company>>("Companies") ?? []).Where(c => listFranchise.Any(f => f.Equals(c.Id)))];
-            SelectedCompanyId = Companies.FirstOrDefault()?.Id;
-        }
+        //private void LoadFranchiseMachines()
+        //{
+        //    AllMachinesFromFranchise = [.. AllMachinesFromFranchise.Where(m => m.CreatorCompanyId.Equals(SelectedCompanyId))];
+        //    UsersMachinesFromFranchise = [.. VendingMachines.Where(m => m.CreatorCompanyId.Equals(SelectedCompanyId))];
+        //}
+        //private async Task LoadCompanies()
+        //{
+        //    var listFranchise = VendingMachines.Select(s => s.CreatorCompanyId).ToList();
+        //    Companies = [.. (await GetFromJson<List<Company>>("Companies") ?? []).Where(c => listFranchise.Any(f => f.Equals(c.Id)))];
+        //    SelectedCompanyId = Companies.FirstOrDefault()?.Id;
+        //}
         private async Task LoadSales()
         {
             SalesList = [.. ((await GetFromJson<List<Sale>>("Sales")) ?? []).Where(s => VendingMachines.Any(vm => vm.Id.Equals(s.VendingMachineId)))];
@@ -337,7 +230,7 @@ namespace CompetitionTraining2
             LoadModelSales(bySumm: false);
 
         private void HideEfficiency(object sender, RoutedEventArgs e) =>
-            EffeciencyBlock = EffeciencyBlock == Visibility.Visible ? Visibility.Collapsed: Visibility.Visible;
+            EffeciencyBlock = EffeciencyBlock == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         private void HideNetworkStatus(object sender, RoutedEventArgs e) =>
             NetworkStatusBlock = NetworkStatusBlock == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         private void HideSummary(object sender, RoutedEventArgs e) =>

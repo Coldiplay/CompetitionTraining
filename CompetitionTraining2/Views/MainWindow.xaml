@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompetitionTraining2"
-        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:oxy="http://oxyplot.org/wpf" d:DataContext="{d:DesignInstance Type=local:MainWindow}"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="1000">
 
@@ -27,25 +27,15 @@
                 <Trigger Property="IsMouseOver" Value="True"/>
             </Style.Triggers>
         </Style>
-        <!--<Style >
-            <Setter Property="Background" Value="#FF0F2233"/>
-        </Style>-->
     </Window.Resources>
 
     <Grid>
-       
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="AUto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!--<StackPanel Orientation="Horizontal">-->
-            <Image Height="50" Source="/Image/Logo.png"/>
-        <!--</StackPanel>-->
+        <Image Height="50" Source="/Image/Logo.png"/>
         <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
             <Image Height="32" Source="{Binding Image}" />
             <StackPanel>
@@ -54,260 +44,198 @@
                 </StackPanel>
             <Button Height="16">
                 <Button.Content>
-                    <Image Source="/Assets/Icons/Font-Awesome-SVG-PNG/black/png/128/angle-down.png"/>
+                    <Image Source="/Image/angle-down.png"/>
                 </Button.Content>
             </Button>
                 
             </StackPanel>
-     
 
 
-        <Grid Background="{StaticResource backBrush}" Grid.Row="1">
-            <Grid.Resources>
-                <Style TargetType="Button" x:Key="DefaultButton" BasedOn="{StaticResource ButtonWOBackgroundChange}">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Margin" Value="2"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-
-                <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}">
-                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                </Style>
-                
-                <Style TargetType="StackPanel">
-                    <Setter Property="Background" Value="{StaticResource backBrush}"/>
-                    <Style.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}">
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="Margin" Value="50 2 2 2"/>
-                        </Style>
-                    </Style.Resources>
-                </Style>
-
-                <Style TargetType="Image">
-                    <Setter Property="Height" Value="16"/>
-                </Style>
-                
-                <Style TargetType="Label">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-                <Style TargetType="RowDefinition">
-                    <Setter Property="Height" Value="Auto"/>
-                </Style>
-            </Grid.Resources>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label Visibility="{Binding MenuVis}" Content="Навигация"/>
-
-            <Button Click="ChangeMenuVis" Margin="10" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right">
-                <Button.Content>
-                    <StackPanel>
-                        <!--<Label>df</Label>-->
-                        <Image Source="/Image/bars.png"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-
-            <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding MenuVis}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                
-                
-                <Button Grid.Row="1" Click="MainPageShow">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Image/search.png" Height="16"/>
-                            <Label Content="Главная"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                
-                <Button Grid.Row="2" Click="MonitorVendMachinesShow">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Image/desktop.png"/>
-                            <Label Content="Монитор ТА"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <Button Grid.Row="3" Click="ReportsVisChange">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Image/file-text.png" />
-                            <Label Content="Детальные отчёты"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <StackPanel Grid.Row="4" Visibility="{Binding ReportsVis}">
-                    <Button Content="Отчёты 1" />
-                    <Button Content="Отчёты 2"/>
-                </StackPanel>
-
-
-                <Button Grid.Row="5" Click="AccountingVisChange">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Image/shopping-cart.png"/>
-                            <Label Content="Учёт ТМЦ"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <StackPanel Grid.Row="6"  Visibility="{Binding AccountingVis}">
-                    <Button Content="Учёт 1" />
-                    <Button Content="Учёт 2" />
-                </StackPanel>
-
-
-                <Button Grid.Row="7" Click="AdministrationVisChange">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Image/cogs.png"/>
-                            <Label Content="Администрирование"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <StackPanel Grid.Row="8" Visibility="{Binding AdministrationVis}">
-                    <Button Content="Торговые автоматы" />
-                    <Button Content="Компании" />
-                    <Button Content="Пользователи" />
-                    <Button Content="Модемы" />
-                    <Button Content="Дополнительные" />
-                </StackPanel>
-
-            </Grid>
-
-        </Grid>
-
-        <Grid Grid.Row="1" Grid.Column="1" Background="#FFC1C1C1">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.ColumnSpan="2" Background="{StaticResource backBrush}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Click="ChangeCompany" Content="{Binding CompanyName}" BorderThickness="0" Foreground="White" Background="Transparent" Style="{StaticResource ButtonWOBackgroundChange}"/>
-                <Label Foreground="Gray" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            </Grid>
-
-
-            <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid Background="{StaticResource backBrush}" Grid.Row="1">
                 <Grid.Resources>
-                    <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="10"/>
+                    <Style TargetType="Button" x:Key="DefaultButton" BasedOn="{StaticResource ButtonWOBackgroundChange}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+
+                    <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Background" Value="{StaticResource backBrush}"/>
+                        <Style.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource DefaultButton}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="Margin" Value="50 2 2 2"/>
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+
+                    <Style TargetType="Image">
+                        <Setter Property="Height" Value="16"/>
+                    </Style>
+
+                    <Style TargetType="Label">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    <Style TargetType="RowDefinition">
+                        <Setter Property="Height" Value="Auto"/>
                     </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Visibility="{Binding MenuVis}" Content="Навигация"/>
+
+                <Button  Click="ChangeMenuVis" Margin="10" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button.Content>
+                        <StackPanel>
+                            <!--<Label>df</Label>-->
+                            <Image Source="/Image/bars.png"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding MenuVis}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+
+
+                    <Button Grid.Row="1" Click="MainPageShow">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Image/search.png" Height="16"/>
+                                <Label Content="Главная"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Row="2" Click="MonitorVendMachinesShow">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Image/desktop.png"/>
+                                <Label Content="Монитор ТА"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Grid.Row="3" Click="ReportsVisChange">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Image/file-text.png" />
+                                <Label Content="Детальные отчёты"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <StackPanel Grid.Row="4" Visibility="{Binding ReportsVis}">
+                        <Button Content="Отчёты 1" />
+                        <Button Content="Отчёты 2"/>
+                    </StackPanel>
+
+
+                    <Button Grid.Row="5" Click="AccountingVisChange">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Image/shopping-cart.png"/>
+                                <Label Content="Учёт ТМЦ"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <StackPanel Grid.Row="6"  Visibility="{Binding AccountingVis}">
+                        <Button Content="Учёт 1" />
+                        <Button Content="Учёт 2" />
+                    </StackPanel>
+
+
+                    <Button Grid.Row="7" Click="AdministrationVisChange">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Image/cogs.png"/>
+                                <Label Content="Администрирование"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <StackPanel Grid.Row="8" Visibility="{Binding AdministrationVis}">
+                        <Button Content="Торговые автоматы" />
+                        <Button Content="Компании" />
+                        <Button Content="Пользователи" />
+                        <Button Content="Модемы" />
+                        <Button Content="Дополнительные" />
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1" Background="#FFC1C1C1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
 
-
-                <Label Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20" Content="Личный кабинет. Главная" Grid.ColumnSpan="3"/>
-
-                <Grid  Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.2*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                <Grid Grid.ColumnSpan="2" Background="{StaticResource backBrush}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
-
-                    <Label Visibility="{Binding EffeciencyBlock}" Content="Эффективность сети" FontWeight="SemiBold" Background="LightGray"/>
-                    <Button Click="HideEfficiency" MinWidth="30" Grid.Column="1">-</Button>
-
-
-                    <Grid Visibility="{Binding EffeciencyBlock}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Background="White">
-                        
-                    </Grid>
+                    <Button Click="ChangeCompany" Content="{Binding CompanyName}" BorderThickness="0" Foreground="White" Background="Transparent" Style="{StaticResource ButtonWOBackgroundChange}"/>
+                    <Label Foreground="Gray" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Grid>
 
-                <Grid  Grid.Row="1" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.2*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+
+                <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                    <Grid.Resources>
+                        <Style TargetType="Grid">
+                            <Setter Property="Margin" Value="10"/>
+                        </Style>
+                    </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
-                    <Label Visibility="{Binding NetworkStatusBlock}" FontWeight="SemiBold" Content="Состояние сети" Background="LightGray"/>
-                    <Button Click="HideNetworkStatus" MinWidth="30" Grid.Column="1">-</Button>
-
-                    <Grid Visibility="{Binding NetworkStatusBlock}" Grid.ColumnSpan="2" Grid.Row="1" Margin="0" Background="White">
-
-                    </Grid>
-                </Grid>
-
-                <Grid  Grid.Row="1" Grid.Column="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="40"/>
+                        <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Visibility="{Binding SummaryBlock}" Content="Сводка" FontWeight="SemiBold" Background="LightGray"/>
-                    <Button Click="HideSummary" MinWidth="30" Grid.Column="1">-</Button>
 
 
-                    <Grid Background="White" Grid.ColumnSpan="2" Grid.Row="1" Visibility="{Binding SummaryBlock}" Margin="0">
-                        <Grid.Resources>
-                            <Style TargetType="RowDefinition">
-                                <Setter Property="Height" Value="Auto"/>
-                            </Style>
-                            <Style TargetType="Label">
-                                <Setter Property="FontSize" Value="8"/>
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="Padding" Value="4"/>
-                            </Style>
-                        </Grid.Resources>
+                    <Label Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20" Content="Личный кабинет. Главная" Grid.ColumnSpan="3"/>
+
+                    <Grid  Grid.Row="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="0.2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -315,75 +243,144 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label>Денег в ТА</Label>
-                        <Label Grid.Row="1">Сдача в ТА</Label>
-                        <Label Grid.Row="2">Выручка, сегодня</Label>
-                        <Label Grid.Row="3">Выручка, вчера</Label>
-                        <Label Grid.Row="4">Инкасированно, сегодня</Label>
-                        <Label Grid.Row="5">Инкасированно, вчера</Label>
-                        <Label Grid.Row="6">Обслужено ТА, сег./вчера</Label>
 
-                        <Label Grid.Column="1">46546 р.</Label>
-                        <Label Grid.Row="1" Grid.Column="1">???465 р.</Label>
-                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding RevenueToday}"/>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding RevenueYesterday}"/>
-                        <Label Grid.Row="4" Grid.Column="1">???46546 р.</Label>
-                        <Label Grid.Row="5" Grid.Column="1">???465 р.</Label>
+                        <Label Visibility="{Binding EffeciencyBlock}" Content="Эффективность сети" FontWeight="SemiBold" Background="LightGray"/>
+                        <Button Click="HideEfficiency" MinWidth="30" Grid.Column="1">-</Button>
 
-                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Label Content="{Binding MaintenancesToday}"/>
-                            <Label>/</Label>
-                            <Label Content="{Binding MaintenancesYesterday}"/>
+
+                        <Grid Visibility="{Binding EffeciencyBlock}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Background="White">
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid  Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Visibility="{Binding NetworkStatusBlock}" FontWeight="SemiBold" Content="Состояние сети" Background="LightGray"/>
+                        <Button Click="HideNetworkStatus" MinWidth="30" Grid.Column="1">-</Button>
+
+                        <Grid Visibility="{Binding NetworkStatusBlock}" Grid.ColumnSpan="2" Grid.Row="1" Margin="0" Background="White">
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid  Grid.Row="1" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Visibility="{Binding SummaryBlock}" Content="Сводка" FontWeight="SemiBold" Background="LightGray"/>
+                        <Button Click="HideSummary" MinWidth="30" Grid.Column="1">-</Button>
+
+
+                        <Grid Background="White" Grid.ColumnSpan="2" Grid.Row="1" Visibility="{Binding SummaryBlock}" Margin="0">
+                            <Grid.Resources>
+                                <Style TargetType="RowDefinition">
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="8"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Padding" Value="4"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>Денег в ТА</Label>
+                            <Label Grid.Row="1">Сдача в ТА</Label>
+                            <Label Grid.Row="2">Выручка, сегодня</Label>
+                            <Label Grid.Row="3">Выручка, вчера</Label>
+                            <Label Grid.Row="4">Инкасированно, сегодня</Label>
+                            <Label Grid.Row="5">Инкасированно, вчера</Label>
+                            <Label Grid.Row="6">Обслужено ТА, сег./вчера</Label>
+
+                            <Label Grid.Column="1">46546 р.</Label>
+                            <Label Grid.Row="1" Grid.Column="1">???465 р.</Label>
+                            <Label Grid.Row="2" Grid.Column="1" Content="{Binding RevenueToday}"/>
+                            <Label Grid.Row="3" Grid.Column="1" Content="{Binding RevenueYesterday}"/>
+                            <Label Grid.Row="4" Grid.Column="1">???46546 р.</Label>
+                            <Label Grid.Row="5" Grid.Column="1">???465 р.</Label>
+
+                            <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="{Binding MaintenancesToday}"/>
+                                <Label>/</Label>
+                                <Label Content="{Binding MaintenancesYesterday}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                    <Grid  Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.7*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel Visibility="{Binding SalesModelBlock}" Background="LightGray">
+                            <Label Content="Динамика продаж за последние 10 дней" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding SalesText}"/>
+
+                            <StackPanel Orientation="Horizontal" >
+                                <Button Content="По сумме" Click="ChangeSalesModelToSumm" Margin="10 10 3 10"/>
+                                <Button Content="По количеству" Click="ChangeSalesModelToCount" Margin="3 10 10 10"/>
+                            </StackPanel>
+
                         </StackPanel>
+                        <Button Click="HideSalesModel" MinWidth="30" Grid.Column="1">-</Button>
+                        <oxy:PlotView Visibility="{Binding SalesModelBlock}" Grid.ColumnSpan="2" Model="{Binding SalesModel}" Grid.Row="1" DefaultTrackerTemplate="{x:Null}"/>
+
+                    </Grid>
+
+                    <Grid  Grid.Row="2" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Visibility="{Binding NewsBlock}" Content="Новости" Background="LightGray" FontWeight="SemiBold"/>
+                        <Button Click="HideNews" MinWidth="30" Grid.Column="1">-</Button>
+
+                        <ListView Visibility="{Binding NewsBlock}" Grid.ColumnSpan="2" Grid.Row="1">
+
+                        </ListView>
+
+
                     </Grid>
                 </Grid>
-
-                <Grid  Grid.Row="2" Grid.ColumnSpan="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.7*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <StackPanel Visibility="{Binding SalesModelBlock}" Background="LightGray">
-                        <Label Content="Динамика продаж за последние 10 дней" FontWeight="SemiBold" />
-                        <TextBlock Text="{Binding SalesText}"/>
-
-                        <StackPanel Orientation="Horizontal" >
-                            <Button Content="По сумме" Click="ChangeSalesModelToSumm" Margin="10 10 3 10"/>
-                            <Button Content="По количеству" Click="ChangeSalesModelToCount" Margin="3 10 10 10"/>
-                        </StackPanel>
-
-                    </StackPanel>
-                    <Button Click="HideSalesModel" MinWidth="30" Grid.Column="1">-</Button>
-                    <oxy:PlotView Visibility="{Binding SalesModelBlock}" Grid.ColumnSpan="2" Model="{Binding SalesModel}" Grid.Row="1" DefaultTrackerTemplate="{x:Null}"/>
-
-                </Grid>
-
-                <Grid  Grid.Row="2" Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.2*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Visibility="{Binding NewsBlock}" Content="Новости" Background="LightGray" FontWeight="SemiBold"/>
-                    <Button Click="HideNews" MinWidth="30" Grid.Column="1">-</Button>
-
-                    <ListView Visibility="{Binding NewsBlock}" Grid.ColumnSpan="2" Grid.Row="1">
-
-                    </ListView>
-
-
-                </Grid>
             </Grid>
+            <!--<UserControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentPage}"/>-->
         </Grid>
     </Grid>
 </Window>

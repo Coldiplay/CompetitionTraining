@@ -22,8 +22,7 @@ namespace CompetitionTraining2
 
         private async void LogIn(object sender, RoutedEventArgs e)
         {
-            //var hash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(passwordBox.Password)));
-            var result = await client.GetAsync($"Auth/Authentificate?username={Login}&password={passwordBox.Password}");//{SHA256.HashData(Encoding.UTF8.GetBytes(passwordBox.Password))}");
+            var result = await client.GetAsync($"Auth/Authentificate?username={Login}&password={passwordBox.Password}");
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
