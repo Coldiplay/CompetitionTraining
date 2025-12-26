@@ -48,17 +48,13 @@ public partial class CompetitionContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    {
-        //optionsBuilder.UseLazyLoadingProxies();
-        optionsBuilder.UseMySql("user=student;password=student;server=192.168.200.13;database=Competition", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.39-mariadb"));
-            }
+        => optionsBuilder.UseMySql("user=student;password=student;server=192.168.200.13;database=Competition", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.39-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
             .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
-
 
         modelBuilder.Entity<Company>(entity =>
         {
@@ -73,7 +69,6 @@ public partial class CompetitionContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("name");
         });
-        //modelBuilder.Entity<Company>().Navigation(e => e.VendingMachines).AutoInclude();
 
         modelBuilder.Entity<CriticalThresholdTemplate>(entity =>
         {
@@ -88,7 +83,6 @@ public partial class CompetitionContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("title");
         });
-        //modelBuilder.Entity<CriticalThresholdTemplate>().Navigation(c => c.VendingMachines).AutoInclude();
 
         modelBuilder.Entity<Maintenance>(entity =>
         {
@@ -331,16 +325,25 @@ public partial class CompetitionContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
-            entity.Property(e => e.Fio)
-                .HasMaxLength(120)
-                .HasColumnName("fio");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(40)
+                .HasColumnName("first_name");
             entity.Property(e => e.Image).HasColumnName("image");
             entity.Property(e => e.IsEngineer).HasColumnName("is_engineer");
             entity.Property(e => e.IsManager).HasColumnName("is_manager");
             entity.Property(e => e.IsOperator).HasColumnName("is_operator");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(45)
+                .HasColumnName("last_name");
+            entity.Property(e => e.Login)
+                .HasMaxLength(30)
+                .HasColumnName("login");
             entity.Property(e => e.Password)
                 .HasMaxLength(256)
                 .HasColumnName("password");
+            entity.Property(e => e.Patronimyc)
+                .HasMaxLength(40)
+                .HasColumnName("patronimyc");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
                 .HasColumnName("phone");
@@ -568,23 +571,6 @@ public partial class CompetitionContext : DbContext
                             .HasColumnName("payment_type_id");
                     });
         });
-        //modelBuilder.Entity<VendingMachine>().Navigation(e => e.CreatorCompany).;
-        /*
-        //var tt = modelBuilder.Entity<VendingMachine>().Navigation(v => v.Engineer);
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Status).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.CreatorCompany).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.CriticalThresholdTemplate).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Maintenances).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Manager).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.ServicePriority).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Engineer).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Operator).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Products).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Sales).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.Technician).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.WorkMode).AutoInclude();
-        //modelBuilder.Entity<VendingMachine>().Navigation(v => v.PaymentTypes).AutoInclude();
-        */
 
         modelBuilder.Entity<WorkMode>(entity =>
         {

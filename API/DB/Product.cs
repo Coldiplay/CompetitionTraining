@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace API.DB;
 
-public partial class Product : IBaseModel
+public partial class Product
 {
     public string Id { get; set; } = null!;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace API.DB;
 
@@ -20,6 +18,6 @@ public partial class Maintenance
 
     [JsonIgnore]
     public virtual User Technician { get; set; } = null!;
-    [JsonIgnore]
+
     public virtual VendingMachine VendingMachine { get; set; } = null!;
 }

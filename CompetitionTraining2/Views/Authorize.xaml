@@ -10,7 +10,7 @@
         <Label>Логин</Label>
         <TextBox MinWidth="200" Text="{Binding Login}"/>
         <Label>Пароль</Label>
-        <PasswordBox Name="passwordBox"></PasswordBox>
+        <PasswordBox Password="12345" Name="passwordBox"></PasswordBox>
         <Button Margin="10" Content="Войти" Click="LogIn"/>
     </StackPanel>
 </Window>

@@ -1,9 +1,8 @@
-﻿using API;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace CompetitionTraining2.Model.Classes;
 
-public partial class Product : IBaseModel
+public partial class Product
 {
     public string Id { get; set; } = null!;
 

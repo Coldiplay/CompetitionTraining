@@ -28,13 +28,13 @@ namespace API.Controllers
             password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password)));
             //var userTest = competitionContext.Users.FirstOrDefault(u => u.Fio.Equals(username) && 
             //password.Equals(u.Password));
-            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Fio.Equals(username) && password.Equals(u.Password));
+            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Login.Equals(username) && password.Equals(u.Password));
             if (user is null)
                 return Unauthorized();
 
             var identity = new ClaimsIdentity(
                 [
-                    new (ClaimsIdentity.DefaultNameClaimType, user.Fio),
+                    new (ClaimsIdentity.DefaultNameClaimType, user.Login),
                     new (ClaimsIdentity.DefaultRoleClaimType, user.Role.Title)
                 ],
                 "Token", 
@@ -57,7 +57,7 @@ namespace API.Controllers
         public async Task<ActionResult<User>> GetUser(string username, string password)
         {
             password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password)));
-            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Fio.Equals(username) && password.Equals(u.Password));
+            var user = await competitionContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Login.Equals(username) && password.Equals(u.Password));
             if (user is null)
                 return Unauthorized();
 

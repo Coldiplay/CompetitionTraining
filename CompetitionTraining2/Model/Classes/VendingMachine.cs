@@ -78,7 +78,6 @@ public partial class VendingMachine
 
     public virtual User Engineer { get; set; } = null!;
 
-    //[JsonIgnore]
     public virtual ICollection<Maintenance> Maintenances { get; set; } = new List<Maintenance>();
 
     public virtual User Manager { get; set; } = null!;
@@ -86,7 +85,7 @@ public partial class VendingMachine
     public virtual NotificationTemplate? NotificationTemplate { get; set; }
 
     public virtual Operator Operator { get; set; } = null!;
-    //[JsonIgnore]
+
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();

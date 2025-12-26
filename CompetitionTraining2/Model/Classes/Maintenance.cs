@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using API.DB;
+using System.Text.Json.Serialization;
 
 namespace CompetitionTraining2.Model.Classes;
 
@@ -18,6 +19,6 @@ public partial class Maintenance
 
     [JsonIgnore]
     public virtual User Technician { get; set; } = null!;
-    [JsonIgnore]
+
     public virtual VendingMachine VendingMachine { get; set; } = null!;
 }

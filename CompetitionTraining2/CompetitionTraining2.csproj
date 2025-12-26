@@ -9,30 +9,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj" />
+    <None Remove="Image\angle-down.png" />
+    <None Remove="Image\bars.png" />
+    <None Remove="Image\cogs.png" />
+    <None Remove="Image\desktop.png" />
+    <None Remove="Image\file-text.png" />
+    <None Remove="Image\Logo.png" />
+    <None Remove="Image\search.png" />
+    <None Remove="Image\shopping-cart.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Image\angle-down.png" />
+    <Resource Include="Image\bars.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\cogs.png" />
+    <Resource Include="Image\desktop.png" />
+    <Resource Include="Image\file-text.png" />
+    <Resource Include="Image\Logo.png" />
+    <Resource Include="Image\search.png" />
+    <Resource Include="Image\shopping-cart.png" />
+  </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\logs\refs\heads\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\logs\refs\remotes\origin\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\objects\info\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\refs\remotes\origin\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\.git\refs\tags\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\22\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\24\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\256\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\32\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\48\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\black\png\64\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\128\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\16\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\22\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\24\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\256\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\32\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\48\" />
-    <Folder Include="Assets\Icons\Font-Awesome-SVG-PNG\white\png\64\" />
+    <ProjectReference Include="..\API\API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

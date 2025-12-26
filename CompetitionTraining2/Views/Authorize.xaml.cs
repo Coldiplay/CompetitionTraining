@@ -11,7 +11,7 @@ namespace CompetitionTraining2
     /// </summary>
     public partial class Authorize : Window
     {
-        public string Login {  get; set; }
+        public string Login { get; set; } = "test";
         private readonly HttpClient client = Helper.Client;
 
         public Authorize()

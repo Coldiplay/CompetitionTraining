@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using API.DB;
+using System.Text.Json.Serialization;
 
 namespace CompetitionTraining2.Model.Classes;
 
